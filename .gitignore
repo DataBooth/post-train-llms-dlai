@@ -1,6 +1,8 @@
 # Extras
 
 notebooks/__marimo__
+.vscode/
+*/trainer_output/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
