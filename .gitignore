@@ -2,7 +2,7 @@
 
 notebooks/__marimo__
 .vscode/
-*/trainer_output/
+**/trainer_output/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
