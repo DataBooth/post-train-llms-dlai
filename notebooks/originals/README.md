@@ -32,6 +32,67 @@ import warnings
 warnings.filterwarnings('ignore')
 ```
 
+#### `DPOConfig` turn off bf16 and fp16 for CPU only
+
+config = DPOConfig(
+    beta=0.2, 
+    per_device_train_batch_size=1,
+    gradient_accumulation_steps=8,
+    num_train_epochs=1,
+    learning_rate=5e-5,
+    logging_steps=2,
+    bf16=False,
+    fp16=False,
+)
+
 ### Lesson_7.ipynb
 
 Removed `./models/` in front of Hugging Face model names (3 occurrences).
+
+
+## What's good about the course?
+
+- All the DeepLearning.AI courses are helpfully predictable following a nice "script".
+- They provide the learner with a sense of what is going on without getting stuck in all the details.
+
+## What's not so good about the course?
+
+- The post-training tuning is implicit and somewhat mysterious as the process is performed
+- 
+- The local run time of some of the notebooks can we quite long without any indication of how long they will take / progress bar. This is fine for a job that runs for a minute or two, however for example in Lesson 5 this code
+- [see below - just initial download of models/tokenizers that was slow - fine after re-run]:
+```python
+model, tokenizer = load_model_and_tokenizer("Qwen/Qwen2.5-0.5B-Instruct",
+                                            USE_GPU)
+
+test_model_with_questions(model, tokenizer, questions,
+                          title="Instruct Model (Before DPO) Output")
+```
+took over 11 minutes to run (again seconds on re-run).
+
+Over 26 minutes for (only seconds on re-run - possibly slow WiFi too initially?):
+```python
+model, tokenizer = load_model_and_tokenizer("banghua/Qwen2.5-0.5B-DPO", 
+                                            USE_GPU)
+
+test_model_with_questions(model, tokenizer, questions,
+                          title="Post-trained Model (After DPO) Output")
+```
+Over 5 mins (although re-run after caching only a few seconds):
+```python
+model, tokenizer = load_model_and_tokenizer("HuggingFaceTB/SmolLM2-135M-Instruct", 
+                                            USE_GPU)
+```
+
+```python
+model, tokenizer = load_model_and_tokenizer("HuggingFaceTB/SmolLM2-135M-Instruct", USE_GPU)
+```
+38 minutes 1st run - 2nd run
+
+## HF CLI
+
+```bash
+brew install huggingface-cli
+```
+
+
